@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+# first, we define the three mongo servers that will act as replicas
+# here, we steup the hostname ports, and startup command
+# which is the same as discussed in the previous section
+  mongo1:
+    hostname: mongo1
+    build: ./
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usr 
+      MONGO_INITDB_ROOT_PASSWORD: pass 
+    ports:
+      - 30001:27017 
+    # restart: always
+    depends_on:
+      - mongo2
+      - mongo3
+
+  mongo2:
+    hostname: mongo2
+    build: ./
+    ports:
+      - 30002:27017
+    # restart: always
+
+  mongo3:
+    hostname: mongo3
+    build: ./
+    ports:
+      - 30003:27017
+    # restart: always
+
+  client:
+    hostname: client
+    image: mongo
+    ports:
+      - 30004:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usr
+      MONGO_INITDB_ROOT_PASSWORD: pass
