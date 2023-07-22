@@ -1,12 +1,14 @@
 FROM mongo
 
 COPY ./scripts /scripts
+
+# key
+RUN chown mongodb:mongodb /scripts/mongo-keyfile
+RUN chmod 400 /scripts/mongo-keyfile
+
+# init script
+RUN chmod 777 /scripts/rs-init
+
 EXPOSE 27017
 
-RUN chmod 666 /scripts/mongo-keyfile
-RUN cp /scripts/mongo-keyfile /scripts/key
-RUN chmod 400 /scripts/key
-RUN chown mongodb:mongodb /scripts/key
-
-CMD [ "mongod", "--keyFile", "/scripts/key", "--bind_ip_all", "--replSet","my-mongo-set" ]
-# CMD [ "mongod", "--replSet","my-mongo-set" ]
+CMD [ "mongod" ]
