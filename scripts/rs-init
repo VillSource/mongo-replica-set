@@ -26,13 +26,23 @@ initrs() {
 
     print_head 'INIT RS SCRIPT'
     mongosh mongodb://usr:pass@mongo1/admin < /scripts/init.js
+    # mongod --keyFile /scripts/mongo-keyfile --bind_ip_all --replSet "my-mongo-set"
 }
 
 # INIT RS SCRIPT
-initrs &> /rs-init.log.txt &
+initrs > /rs-init.log.txt &
 
 # set key to mongodb
 chown mongodb:mongodb /scripts/mongo-keyfile
 
 # START DATABASE
-mongod --keyFile /scripts/mongo-keyfile --bind_ip_all --replSet "my-mongo-set"
+mongod --bind_ip_all
+
+
+
+
+
+
+
+# ????????????????????????????????????????
+# mongod --bind_ip_all --replSet "my-mongo-set"

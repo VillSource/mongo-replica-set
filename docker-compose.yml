@@ -6,14 +6,15 @@ services:
     hostname: mongo1
     build: ./
     environment:
-      MONGO_INITDB_ROOT_USERNAME: usr 
-      MONGO_INITDB_ROOT_PASSWORD: pass 
+      # MONGO_INITDB_ROOT_USERNAME: usr
+      # MONGO_INITDB_ROOT_PASSWORD: pass
       IS_PRIMARY: true
     ports:
       - 30001:27017 
     depends_on:
       - mongo2
       - mongo3
+    # command: /scripts/rs-init
 
   mongo2:
     hostname: mongo2
@@ -28,16 +29,16 @@ services:
       - 30003:27017
 
   
-  # mongo-express:
-  #   image: mongo-express
-  #   ports:
-  #     - 8081:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: usr 
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: pass
-  #     ME_CONFIG_MONGODB_URL: mongodb://usr:pass@mongo1,mongo2,mongo3/?replicaSet=my-mongo-set
-  #   restart: always
-  #   depends_on:
-  #     - mongo1
-  #     - mongo2
-  #     - mongo3
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: usr
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
+      ME_CONFIG_MONGODB_URL: mongodb://usr:pass@mongo1,mongo2,mongo3/?replicaSet=my-mongo-set
+    restart: always
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
