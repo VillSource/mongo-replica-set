@@ -11,8 +11,6 @@ services:
       - ./log/m1:/data/db/log
       - ./scripts/:/scripts
     environment:
-      # MONGO_INITDB_ROOT_USERNAME: usr
-      # MONGO_INITDB_ROOT_PASSWORD: pass
       MONGO_INITDB_DATABASE: admin
       IS_PRIMARY: true
     ports:

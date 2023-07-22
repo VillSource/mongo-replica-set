@@ -48,4 +48,4 @@ chown mongodb:mongodb /scripts/mongo-keyfile
 # mongod --keyFile /scripts/mongo-keyfile --bind_ip_all --replSet "my-mongo-set"
 
 
-mongod --port 50001 --replSet "my-mongo-set" --bind_ip_all
+mongod --port $PORT --replSet "my-mongo-set" --bind_ip_all
